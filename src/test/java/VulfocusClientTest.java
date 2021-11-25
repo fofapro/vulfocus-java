@@ -19,8 +19,8 @@ public class VulfocusClientTest {
         String license = "";
         VulfocusClinet vulfocusClinet = new VulfocusClinet(username, license);
         List<ImageEntity> imageEntityList = vulfocusClinet.imageList();
-        System.out.println(imageEntityList);
         ImageEntity imageEntity = imageEntityList.get(0);
+        System.out.println(imageEntity);
         System.out.println(vulfocusClinet.start(imageEntity.getImageName()));
         System.out.println(vulfocusClinet.stop(imageEntity.getImageName()));
         System.out.println(vulfocusClinet.delete(imageEntity.getImageName()));

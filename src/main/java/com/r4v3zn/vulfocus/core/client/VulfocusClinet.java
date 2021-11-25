@@ -119,7 +119,7 @@ public class VulfocusClinet {
      * @throws Exception exception
      */
     public String stop(String imageName) throws Exception{
-        return operation(imageName,OperationConstants.START).get("msg").asText();
+        return operation(imageName,OperationConstants.STOP).get("msg").asText();
     }
 
 
