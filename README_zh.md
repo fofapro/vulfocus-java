@@ -28,6 +28,72 @@
 </dependency>
 ```
 
+### Gradle Groovy DSL
+
+```
+implementation 'com.r4v3zn.vulfocus:vulfocus-java:0.0.2'
+```
+
+### Gradle Kotlin DSL
+
+```
+implementation("com.r4v3zn.vulfocus:vulfocus-java:0.0.2")
+```
+
+### Scala SBT
+
+```
+libraryDependencies += "com.r4v3zn.vulfocus" % "vulfocus-java" % "0.0.2"
+```
+
+### Apache Ivy
+
+```
+<dependency org="com.r4v3zn.vulfocus" name="vulfocus-java" rev="0.0.2" />
+```
+
+### Groovy Grape
+
+```
+@Grapes(
+  @Grab(group='com.r4v3zn.vulfocus', module='vulfocus-java', version='0.0.2')
+)
+```
+
+###  Leiningen
+
+```
+[com.r4v3zn.vulfocus/vulfocus-java "0.0.2"]
+```
+
+### Apache Buildr
+
+```
+'com.r4v3zn.vulfocus:vulfocus-java:jar:0.0.2'
+```
+
+### Maven Central Badge
+
+```
+[![Maven Central](https://img.shields.io/maven-central/v/com.r4v3zn.vulfocus/vulfocus-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.r4v3zn.vulfocus%22%20AND%20a:%22vulfocus-java%22)
+```
+
+### PURL
+
+```
+pkg:maven/com.r4v3zn.vulfocus/vulfocus-java@0.0.2
+```
+
+### Bazel
+
+```
+maven_jar(
+    name = "vulfocus-java",
+    artifact = "com.r4v3zn.vulfocus:vulfocus-java:0.0.2",
+    sha1 = "32e595e8cd0f7879fd0246d82f747b789cc21af0",
+)
+```
+
 ## USE
 
 |字段名称|描述|
