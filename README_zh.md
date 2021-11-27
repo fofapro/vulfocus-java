@@ -23,7 +23,7 @@
 ```
 <dependency>
   <groupId>com.r4v3zn.vulfocus</groupId>
-  <artifactId>vulfocus-core</artifactId>
+  <artifactId>vulfocus-java</artifactId>
   <version>0.0.2</version>
 </dependency>
 ```
