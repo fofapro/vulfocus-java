@@ -10,13 +10,14 @@ package com.r4v3zn.vulfocus.core.entity;
  * @author R4v3zn
  * @version 1.0.0
  */
-public class VulfocusException extends Exception{
+public class VulfocusException extends Exception {
 
     /**
      * Constructor
+     *
      * @param msg message
      */
-    public VulfocusException(String msg){
+    public VulfocusException(String msg) {
         super(msg);
     }
 }

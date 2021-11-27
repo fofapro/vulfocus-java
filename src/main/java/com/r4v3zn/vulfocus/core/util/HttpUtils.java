@@ -27,6 +27,7 @@ import java.util.Map;
  * Date:2019-06-10 19:10
  * Email:woo0nise@gmail.com
  * Company:www.j2ee.app
+ *
  * @author R4v3zn
  * @version 1.0.0
  */
@@ -34,34 +35,37 @@ public class HttpUtils {
     /**
      * private
      */
-    private HttpUtils(){}
+    private HttpUtils() {
+    }
 
     /**
      * do get
+     *
      * @param url requests url
      * @return response info
      */
-    public static String doGet(String url){
-        return doGet(url,null);
+    public static String doGet(String url) {
+        return doGet(url, null);
     }
 
 
     /**
      * do post
+     *
      * @param actionUrl requests url
-     * @param map requests param
+     * @param map       requests param
      * @return response info
      */
-    public static  String doPost(String actionUrl,Map<String,Object> map) {
+    public static String doPost(String actionUrl, Map<String, Object> map) {
         String result = "";
         StringBuilder parameterBuilder = new StringBuilder();
-        if(map != null && map.size() > 0){
+        if (map != null && map.size() > 0) {
             Iterator<String> iterator = map.keySet().iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 String key = iterator.next();
                 String value = map.get(key) == null ? "" : map.get(key).toString();
                 parameterBuilder.append(key).append("=").append(value);
-                if (iterator.hasNext()){
+                if (iterator.hasNext()) {
                     parameterBuilder.append("&");
                 }
             }
@@ -96,41 +100,44 @@ public class HttpUtils {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            try{
-                if (outputStream != null){
+        } finally {
+            try {
+                if (outputStream != null) {
                     outputStream.close();
                 }
-                if (outputStreamWriter != null){
+                if (outputStreamWriter != null) {
                     outputStreamWriter.close();
                 }
-                if (inputStream != null){
+                if (inputStream != null) {
                     inputStream.close();
                 }
-                if (inputStreamReader != null){
+                if (inputStreamReader != null) {
                     inputStreamReader.close();
                 }
-                if (reader != null){
+                if (reader != null) {
                     reader.close();
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         return resultBuilder.toString();
     }
+
     /**
      * do get
+     *
      * @param actionUrl requests url
-     * @param map requests param
+     * @param map       requests param
      * @return response info
      */
-    public static  String doGet(String actionUrl,Map<String,Object> map) {
+    public static String doGet(String actionUrl, Map<String, Object> map) {
         String result = "";
         try {
-            if(map != null && map.size() > 0){
+            if (map != null && map.size() > 0) {
                 actionUrl += "?";
 
                 StringBuilder actionUrlBuilder = new StringBuilder(actionUrl);
-                for (String key: map.keySet()) {
+                for (String key : map.keySet()) {
                     actionUrlBuilder.append(key).append("=").append(URLEncoder.encode(map.get(key).toString(), "UTF-8")).append("&");
                 }
                 actionUrl = actionUrlBuilder.toString();
@@ -139,9 +146,9 @@ public class HttpUtils {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             BufferedReader reader = null;
-            if(HttpURLConnection.HTTP_OK == connection.getResponseCode()){
+            if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
-            }else{
+            } else {
                 reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
             }
             StringBuilder s = new StringBuilder();

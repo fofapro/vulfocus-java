@@ -1,4 +1,5 @@
 package com.r4v3zn.vulfocus.core.client;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.r4v3zn.vulfocus.core.constants.OperationConstants;
@@ -6,6 +7,7 @@ import com.r4v3zn.vulfocus.core.entity.HostEntity;
 import com.r4v3zn.vulfocus.core.entity.ImageEntity;
 import com.r4v3zn.vulfocus.core.entity.VulfocusException;
 import com.r4v3zn.vulfocus.core.util.HttpUtils;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -56,29 +58,31 @@ public class VulfocusClinet {
 
     /**
      * Vulfocus Clinet
+     *
      * @param username username
-     * @param licence licence
+     * @param licence  licence
      */
-    public VulfocusClinet(String username, String licence){
+    public VulfocusClinet(String username, String licence) {
         this.username = username;
         this.licence = licence;
     }
 
     /**
      * Image list
+     *
      * @return images
      * @throws Exception exception
      */
     public List<ImageEntity> imageList() throws Exception {
-        Map<String,Object> params = new HashMap<>(16);
+        Map<String, Object> params = new HashMap<>(16);
         params.put("username", this.username);
         params.put("licence", this.licence);
-        String response = HttpUtils.doGet(VULFOCUS_API_URL,params);
+        String response = HttpUtils.doGet(VULFOCUS_API_URL, params);
         JsonNode jsonNode = mapper.readTree(response);
         // check response
         checkResponse(jsonNode);
         String data = jsonNode.get("data").toString();
-        List<LinkedHashMap<String,String>> imageEntities = mapper.readValue(data,List.class);
+        List<LinkedHashMap<String, String>> imageEntities = mapper.readValue(data, List.class);
         return imageEntities.stream().map(tmp -> {
             ImageEntity imageEntity = new ImageEntity();
             imageEntity.setImageName(tmp.get("image_name"));
@@ -90,12 +94,13 @@ public class VulfocusClinet {
 
     /**
      * Start
+     *
      * @param imageName image name
      * @return HostEntity
      * @throws Exception exception
      */
     public HostEntity start(String imageName) throws Exception {
-        JsonNode dataNode = operation(imageName,OperationConstants.START).get("data");
+        JsonNode dataNode = operation(imageName, OperationConstants.START).get("data");
         HostEntity entity = new HostEntity();
         entity.setHost(dataNode.get("host").asText());
         entity.setPort(dataNode.get("port").asText());
@@ -104,38 +109,42 @@ public class VulfocusClinet {
 
     /**
      * delete
+     *
      * @param imageName image name
      * @return response
      * @throws Exception exception
      */
-    public String delete(String imageName) throws Exception{
-        return operation(imageName,OperationConstants.DELETE).get("msg").asText();
+    public String delete(String imageName) throws Exception {
+        return operation(imageName, OperationConstants.DELETE).get("msg").asText();
     }
 
     /**
      * stop
+     *
      * @param imageName image name
      * @return response
      * @throws Exception exception
      */
-    public String stop(String imageName) throws Exception{
-        return operation(imageName,OperationConstants.STOP).get("msg").asText();
+    public String stop(String imageName) throws Exception {
+        return operation(imageName, OperationConstants.STOP).get("msg").asText();
     }
 
 
     /**
      * check param
+     *
      * @param imageName image name
      * @throws VulfocusException exception
      */
-    private void checkParam(String imageName)throws VulfocusException {
-        if (imageName == null || "".equals(imageName)){
+    private void checkParam(String imageName) throws VulfocusException {
+        if (imageName == null || "".equals(imageName)) {
             throw new VulfocusException("image name cannot be empty");
         }
     }
 
     /**
      * image operation
+     *
      * @param imageName image name
      * @param operation start stop delete
      * @return JsonNode
@@ -144,12 +153,12 @@ public class VulfocusClinet {
     private JsonNode operation(String imageName, String operation) throws Exception {
         // check param
         checkParam(imageName);
-        Map<String,Object> params = new HashMap<>(16);
+        Map<String, Object> params = new HashMap<>(16);
         params.put("username", this.username);
         params.put("licence", this.licence);
         params.put("image_name", imageName);
         params.put("requisition", operation);
-        String response = HttpUtils.doPost(VULFOCUS_API_URL,params);
+        String response = HttpUtils.doPost(VULFOCUS_API_URL, params);
         JsonNode jsonNode = mapper.readTree(response);
         // check response
         checkResponse(jsonNode);
@@ -158,13 +167,14 @@ public class VulfocusClinet {
 
     /**
      * Check response
+     *
      * @param jsonNode json node
      * @throws VulfocusException exception
      */
-    private void checkResponse(JsonNode jsonNode)throws VulfocusException{
-        String msg =jsonNode.get("msg").asText();
+    private void checkResponse(JsonNode jsonNode) throws VulfocusException {
+        String msg = jsonNode.get("msg").asText();
         int status = jsonNode.get("status").asInt();
-        if (status != 200){
+        if (status != 200) {
             throw new VulfocusException(msg);
         }
     }
